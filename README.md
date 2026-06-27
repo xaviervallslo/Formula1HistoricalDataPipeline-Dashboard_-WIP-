@@ -32,33 +32,8 @@ Corrige nombres de Gran Premio duplicados o mal formateados (p. ej. "Great Brita
 Extrae y separa los códigos de piloto (FIA) del nombre completo.
 Normaliza espacios y formatos de texto.
 
-
-
 Exportación: guarda todo en F1.xlsx, con una hoja por entidad (Racers, Drivers, Teams).
 Análisis exploratorio: combina (merge) los datos de carreras y pilotos para relacionar ganadores de cada GP con sus estadísticas de temporada.
-
-
-🕸️ Web Scraping: cómo se recogen los datos
-
-Los datos no provienen de una API, sino que se extraen directamente del HTML público de formula1.com/en/results mediante web scraping. El proceso técnico es el siguiente:
-
-
-Petición HTTP con cabecera User-Agent: se usa requests.get(url, headers={"User-Agent": "Mozilla/5.0"}) para simular un navegador real y evitar que el servidor bloquee la petición por detectar un script/bot.
-Comprobación del código de respuesta: antes de procesar nada se valida r.status_code != 200; si el año/temporada no devuelve una página válida, se salta (continue) sin romper el bucle.
-Parseo de tablas HTML con pandas.read_html: en lugar de usar BeautifulSoup o lxml manualmente, se aprovecha pd.read_html(StringIO(r.text))[0], que detecta y convierte directamente la tabla de resultados en un DataFrame. StringIO se usa porque read_html espera un file-like object, no un string plano.
-Manejo de tablas inexistentes: si una temporada no tiene tabla de resultados (por ejemplo, datos incompletos o estructura distinta), read_html lanza ValueError, que se captura con try/except para continuar con el resto de años sin detener el proceso.
-Bucle dinámico de temporadas: el rango de años (1950 hasta el año actual) se calcula automáticamente con datetime.now(). Se aplica una regla de negocio: si todavía no ha empezado la temporada (mes < marzo), se usa el año anterior como límite, evitando años con datos vacíos o a medias.
-Limpieza con expresiones regulares (re / .str.replace):
-
-Eliminación de banderas: Grand Prix.str.replace(r"Flag of .*?", "", regex=True) quita el texto residual "Flag of..." que arrastra la tabla de carreras.
-Función limpiar_gp(): corrige nombres de Gran Premio duplicados ("Great BritainGreat Britain") detectando si la cadena se repite exactamente a mitad, y también corta nombres pegados sin espacio ("AmericaIndianapolis") buscando el punto donde aparece una mayúscula sin espacio previo.
-Extracción del código FIA del piloto: str.extract(r'([A-Z]{3})$') captura las 3 letras mayúsculas finales (ej. VER, HAM) y luego se eliminan del nombre original con str.replace(r'[A-Z]{3}$', '', regex=True).
-
-
-
-Reordenación de columnas: tras extraer el DriverCode/WinnerCode, se reconstruye el orden de columnas manualmente (cols.remove(...), cols.insert(...)) para colocar el nuevo campo justo a continuación del nombre del piloto.
-Concatenación de todas las temporadas: cada año se procesa por separado y se almacena en una lista (dfs.append(df)); al final se unifica todo con pd.concat(dfs, ignore_index=True) para obtener un único dataset histórico.
-Cruces de datos (merge): se combinan los datasets de carreras y pilotos usando pd.merge con how='left' (para enlazar cada ganador de GP con sus estadísticas de piloto) y how='outer' (para una combinación completa por año, sin perder filas de ninguno de los dos lados).
 
 
 🛠️ Tecnologías utilizadas
@@ -102,15 +77,18 @@ Dashboard
 
 Abre Formula1.pbix con Power BI Desktop para explorar las visualizaciones ya construidas sobre el dataset.
 
+
 📊 Datos disponibles
 
 HojaColumnas principalesRacersGrand Prix, Date, Winner, WinnerCode, Team, Laps, Time, YearDriversPos., Driver, DriverCode, Nationality, Team, Pts., YearTeamsPos., Team, Pts., Year
+
 
 📌 Notas
 
 
 Los datos cubren temporadas desde 1950 hasta la temporada actual (se actualiza dinámicamente según la fecha del sistema).
 Las rutas de archivo en F1.py y F1.bat están configuradas para un entorno local específico (C:\Users\xxaby\Desktop\master\Formula1); deberás ajustarlas a tu propia ruta si clonas el repositorio.
+
 
 
 📄 Licencia
