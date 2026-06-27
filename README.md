@@ -61,13 +61,7 @@ Concatenación de todas las temporadas: cada año se procesa por separado y se a
 Cruces de datos (merge): se combinan los datasets de carreras y pilotos usando pd.merge con how='left' (para enlazar cada ganador de GP con sus estadísticas de piloto) y how='outer' (para una combinación completa por año, sin perder filas de ninguno de los dos lados).
 
 
-
-⚠️ A tener en cuenta: al ser web scraping sobre HTML público (no una API oficial), el proceso es sensible a cualquier cambio de estructura en la web de F1. Además, pd.ExcelWriter se invoca varias veces a lo largo del script sin modo append, por lo que cada llamada sobrescribe el archivo; solo la última escritura (al final, con las 3 hojas juntas) define el contenido definitivo de F1.xlsx.
-
-
-
 🛠️ Tecnologías utilizadas
-
 
 Python 3.12
 pandas — manipulación y limpieza de datos
