@@ -64,18 +64,9 @@ F1.bat
 Esto generará/actualizará el archivo F1.xlsx en el mismo directorio.
 
 
+
 ⚠️ Nota: el script depende de la estructura HTML de formula1.com en el momento de la ejecución. Si la web cambia su estructura, el scraping (pd.read_html) puede dejar de funcionar y requerirá ajustes.
 
-
-Notebook
-
-Si prefieres explorar el proceso paso a paso, abre F1.ipynb con Jupyter:
-
-bashjupyter notebook F1.ipynb
-
-Dashboard
-
-Abre Formula1.pbix con Power BI Desktop para explorar las visualizaciones ya construidas sobre el dataset.
 
 
 📊 Datos disponibles
@@ -83,8 +74,8 @@ Abre Formula1.pbix con Power BI Desktop para explorar las visualizaciones ya con
 Columnas principales RacersGrand Prix, Date, Winner, WinnerCode, Team, Laps, Time, YearDriversPos., Driver, DriverCode, Nationality, Team, Pts., YearTeamsPos., Team, Pts., Year
 
 
-📌 Notas
 
+📌 Notas
 
 Los datos cubren temporadas desde 1950 hasta la temporada actual (se actualiza dinámicamente según la fecha del sistema).
 Las rutas de archivo en F1.py y F1.bat están configuradas para un entorno local específico (C:\Users\xxaby\Desktop\master\Formula1); deberás ajustarlas a tu propia ruta si clonas el repositorio.
