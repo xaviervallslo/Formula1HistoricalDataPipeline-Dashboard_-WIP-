@@ -80,7 +80,7 @@ Abre Formula1.pbix con Power BI Desktop para explorar las visualizaciones ya con
 
 📊 Datos disponibles
 
-HojaColumnas principalesRacersGrand Prix, Date, Winner, WinnerCode, Team, Laps, Time, YearDriversPos., Driver, DriverCode, Nationality, Team, Pts., YearTeamsPos., Team, Pts., Year
+Columnas principales RacersGrand Prix, Date, Winner, WinnerCode, Team, Laps, Time, YearDriversPos., Driver, DriverCode, Nationality, Team, Pts., YearTeamsPos., Team, Pts., Year
 
 
 📌 Notas
