@@ -50,15 +50,7 @@ Análisis exploratorio: combina (merge) los datos de carreras y pilotos para rel
 
 ## 🚀 Cómo ejecutarlo
 
-Requisitos
-
-bashpip install pandas numpy matplotlib requests openpyxl lxml
-
-Ejecución
-
-bashpython F1.py
-
-O en Windows, simplemente haciendo doble clic en:
+Ejecutar el archivo 
 
 F1.bat
 
